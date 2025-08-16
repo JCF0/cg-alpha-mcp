@@ -18,6 +18,8 @@ Users can also connect the Nansen MCP for additional context in their token alph
 - **TA utilities**: RSI (Wilder) and Bollinger Bands (SMA + population stdev)
 - Designed to run with any MCP client (Claude Desktop, Cursor, etc. - n.b. designed with Claude desktop)
 
+## Prompt and responses
+![Claude response example](promts_responses_images/example.png)
 --------------------
 
 ## Quick Start
