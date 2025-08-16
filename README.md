@@ -31,100 +31,100 @@ Users can also connect the Nansen MCP for additional context in their token alph
 git clone https://github.com/<you>/cg-alpha-mcp.git
 cd cg-alpha-mcp
 npm install   # installs dependencies (node_modules is ignored in Git)
+```
 
 ### 3) Configure environment
-cp .env.example .env
-# Edit .env and set ELFA_API_KEY (and COINGECKO_API_KEY if you use the CoinGecko MCP with a key)
-Keep .env private — it’s already in .gitignore.
+`cp .env.example .env`
+- Edit `.env` and set `ELFA_API_KEY` (and `COINGECKO_API_KEY` if you use the CoinGecko MCP with a key)
+- Keep `.env` private — it’s already in `.gitignore`.
 
 ### 4) Hook into your MCP client
 Most MCP clients let you add a custom server command. Use:
-- Command: node
-- Args: C:/Users/YOUR-FILE-NAME/cg-alpha-mcp/mcp-server.js (or ./mcp-server.js on macOS/Linux)
+- Command: `node`
+- Args: `C:/Users/YOUR-FILE-NAME/cg-alpha-mcp/mcp-server.js` (or `./mcp-server.js` on macOS/Linux)
 - Working directory: the repo root
-- On Windows, paths often look like:
-C:\Users\YOUR-FILE-NAME\cg-alpha-mcp\mcp-server.js
+On Windows, paths often look like:
+```C:\Users\YOUR-FILE-NAME\cg-alpha-mcp\mcp-server.js```
 
 ### 5) Once added, your client should show tools like:
-- elfa_status
-- elfa_reload_env
-- elfa_trending / elfa_trending_tokens
-- elfa_token_news
-- elfa_keyword_mentions
-- elfa_query
+- `elfa_status`
+- `elfa_reload_env`
+- `elfa_trending / elfa_trending_tokens`
+- `elfa_token_news`
+- `elfa_keyword_mentions`
+- `elfa_query`
 
 ### 6) Environment Variables
-- See .env.example for all options.
-
-ELFA_API_KEY (required for ELFA calls)
+See `.env.example` for all options.
+- ELFA_API_KEY (required for ELFA calls)
 - Get from ELFA (https://www.elfa.ai/api).
 - COINGECKO_API_KEY - add to Claude config file.
 
 Advanced (optional):
-- ELFA_HEADER: header name for auth (defaults to x-elfa-api-key)
-- ELFA_AUTH_TYPE: set to x-elfa-api-key (default) or bearer
-- ELFA_BASE: ELFA base URL (defaults to https://api.elfa.ai)
+- `ELFA_HEADER`: header name for auth (defaults to `x-elfa-api-key`)
+- `ELFA_AUTH_TYPE`: set to `x-elfa-api-key` (default) or bearer
+- `ELFA_BASE: ELFA` base URL (defaults to `https://api.elfa.ai`)
 
 ### 7) Claude config file - structure at bottom of README
 
 ### 8) (Optional) - Nansen paid users can download .dxt file to install
 - Either drag and drop into Extensions or
-- Extensions > Advanced Setting > Install Extension > Choose .dxt file > Enter your API key
+- Extensions > Advanced Setting > Install Extension > Choose `.dxt` file > Enter your API key
 --------------------
 
 ### 9) Troubleshooting:
 401 “API key is required”
-- Check .env has ELFA_API_KEY=...
-- Run elfa_reload_env (no restart needed)
-- Verify header style: ELFA expects x-elfa-api-key (the server auto-tries both)
+- Check `.env` has `ELFA_API_KEY=...`
+- Run `elfa_reload_env` (no restart needed)
+- Verify header style: ELFA expects `x-elfa-api-key` (the server auto-tries both)
 
 404 “Cannot GET …/data/trending”
-- Use /v2/aggregations/trending-tokens (the server’s elfa_trending already points here)
-- .env in the right place?
-- Put .env in the same folder as mcp-server.js (repo root)
+- Use `/v2/aggregations/trending-tokens` (the server’s `elfa_trending` already points here)
+- `.env` in the right place?
+- Put `.env` in the same folder as `mcp-server.js` (repo root)
 
 Windows path issues
 - Use absolute paths in the MCP client if needed, e.g.
-C:\Users\YOUR-FILE-NAME\cg-alpha-mcp\mcp-server.js
+```C:\Users\YOUR-FILE-NAME\cg-alpha-mcp\mcp-server.js```
 
 Security
-- .env is ignored by git.
-- Include a public, safe .env.example so others can configure their own keys.
+- `.env` is ignored by git.
+- Include a public, safe `.env.example` so others can configure their own keys.
 
 --------------------
 
-Useful Tools & What They Do
+## Useful Tools & What They Do
 - elfa_status - Shows current base URL and masked auth status.
-- elfa_reload_env - Reloads .env at runtime (no restart). Use this after editing the .env.
+- elfa_reload_env - Reloads .env at runtime (no restart). Use this after editing the `.env`.
 - elfa_set_auth - Manually sets the API key and header style if needed:
-{ "key": "sk-...", "headerName": "x-elfa-api-key", "scheme": "" }
+```{ "key": "sk-...", "headerName": "x-elfa-api-key", "scheme": "" }```
 - elfa_trending / elfa_trending_tokens - Wrapper around /v2/aggregations/trending-tokens:
-{ "timeframe": "24h", "limit": 10, "chain": "all" }
+```{ "timeframe": "24h", "limit": 10, "chain": "all" }```
 - elfa_token_news - Token news:
-{ "symbols": "BTC,ETH", "limit": 20, "start": "2025-08-01", "end": "2025-08-16" }
+```{ "symbols": "BTC,ETH", "limit": 20, "start": "2025-08-01", "end": "2025-08-16" }```
 - elfa_keyword_mentions - Multi-keyword mentions:
-{ "keywords": ["bitcoin","halving"], "limit": 50 }
+```{ "keywords": ["bitcoin","halving"], "limit": 50 }```
 - elfa_query - Generic ELFA proxy for any path:
-{ "path": "/v2/aggregations/trending-tokens", "method": "GET", "query": { "timeframe": "24h", "limit": 10 } }
+```{ "path": "/v2/aggregations/trending-tokens", "method": "GET", "query": { "timeframe": "24h", "limit": 10 } }```
 
-Technical Analysis (TA)
-We provide a tiny pure JS TA module in services/ta.js:
-- rsi(values, period=14) → last RSI value (0–100)
-- bollinger(values, period=20, mult=2) → { mean, upper, lower, last, percentB, bandwidth }
+### Technical Analysis (TA)
+We provide a tiny pure JS TA module in `services/ta.js`:
+- `rsi(values, period=14)` → last RSI value (0–100)
+- `bollinger(values, period=20, mult=2)` → `{ mean, upper, lower, last, percentB, bandwidth }`
 Inputs are arrays of numeric closes in order oldest → newest.
 Your MCP orchestration fetches price series (e.g., via CoinGecko MCP) and then calls TA.
 
-Intended Prompt Workflow:
+### Intended Prompt Workflow:
 "Show me the top 15 trending tokens on coingecko via their mcp, and the top 10 trending tokens on Elfa."
 (- Nansen users can ask for the recent smart money flows and activity.)
 "Show me the top 10 gainers and top 10 losers over the past 7 days in USD (specify timeframe: 24hours, 7days, 30days, specify token range: top 1000 or all tokens)."
 (- Goingecko Pro API users can call this from the MCP. Demo API users can ask Claude to determine this manually - *tokens with 24hr volume over 50k.)
 
-User Chooses Specific Coins/Tokens of Interest from above lists:
+### User Chooses Specific Coins/Tokens of Interest from above lists:
 "For (selected coins/tokens), show me the token news from Elfa AI, the trends in mentions and mentions delta from Elfa, and give me the RSI and Bollinger Bands for each."
 (- Nansen users can also ask for smart money data/comparison for these tokens - who is buying (selected coins/tokens)?)
 
-Other prompts:
+### Other prompts:
 Built-in timeframe (fast):
 "Show me the top 10 gainers and top 10 losers over the past 7 days in USD, and give me the RSI and Bollinger Bands for each."
 Custom timeframe (computed):
@@ -144,8 +144,8 @@ Gainers & Losers
 
 --------------------
 
-Claude config file structure:
-
+## Claude config file structure:
+```
 {
   "mcpServers": {
     "cg-alpha-mcp": {
@@ -167,4 +167,4 @@ Claude config file structure:
     }
   }
 }
-
+```
