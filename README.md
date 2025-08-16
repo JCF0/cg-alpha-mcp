@@ -30,7 +30,7 @@ Users can also connect the Nansen MCP for additional context in their token alph
 ```bash
 git clone https://github.com/<you>/cg-alpha-mcp.git
 cd cg-alpha-mcp
-npm install
+npm install   # installs dependencies (node_modules is ignored in Git)
 
 ### 3) Configure environment
 cp .env.example .env
