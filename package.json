@@ -1,0 +1,17 @@
+{
+  "name": "cg-alpha-mcp",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "mcp-server.js",
+  "scripts": {
+    "mcp": "node mcp-server.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.17.3",
+    "axios": "^1.11.0",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "zod": "3.23.8"
+  }
+}
